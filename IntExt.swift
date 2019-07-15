@@ -1,13 +1,52 @@
 //
 //  IntExt.swift
-//  Care
+//  Blighty Times
 //
-//  Created by Samuel Lagunes on 2/27/19.
-//  Copyright © 2019 Kevin Barney. All rights reserved.
+//  Created by Zachary Duncan on 5/20/19.
+//  Copyright © 2019 Zachary Duncan. All rights reserved.
 //
-
 import Foundation
 
 extension Int {
     var boolValue: Bool { return self != 0 }
+    
+    func commaFormat() -> String {
+        let numberFormatter = NumberFormatter();
+        numberFormatter.numberStyle = NumberFormatter.Style.decimal;
+        
+        return numberFormatter.string(from: NSNumber(value: self))!;
+    }
+    
+    func dollarFormat() -> String {
+        let numberFormatter = NumberFormatter();
+        numberFormatter.numberStyle = NumberFormatter.Style.decimal;
+        if self >= 0 {
+            return "$" + numberFormatter.string(from: NSNumber(value: self))!;
+        } else {
+            return "-$" + numberFormatter.string(from: NSNumber(value: self * -1))!;
+        }
+    }
+    
+    static func *(left: inout Int, right: Double) {
+        left = Int(Double(left) * right)
+    }
+    
+    static func /(left: inout Int, right: Double) {
+        left = Int(Double(left) / right)
+    }
+    static func /(left: Int, right: Double) -> Int {
+        return Int(Double(left) / right)
+    }
+    
+    static func randomIndex(fromCount arrayCount: Int) -> Int {
+        return Int.random(in: 0 ..< arrayCount);
+    }
+    
+    static func random(between left: Int, and right: Int) -> Int {
+        if left < right {
+            return Int.random(in: left ... right);
+        } else {
+            return Int.random(in: right ... left);
+        }
+    }
 }
